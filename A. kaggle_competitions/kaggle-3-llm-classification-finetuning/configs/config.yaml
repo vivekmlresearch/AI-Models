@@ -1,0 +1,13 @@
+seed: 42
+paths:
+  train_csv: src/data/raw/train.csv
+  test_csv: src/data/raw/test.csv
+  sample_submission_csv: src/data/raw/sample_submission.csv
+  model_path: artifacts/model.joblib
+  oof_path: artifacts/oof_predictions.csv
+  submission_path: submission.csv
+model:
+  max_features: 50000
+  ngram_range: [1, 2]
+  C: 3.0
+  max_iter: 1200

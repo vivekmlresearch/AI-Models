@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  train:
+    build:
+      context: .
+      dockerfile: Dockerfile.train
+    volumes:
+      - ./:/app
+    working_dir: /app
+    command: python -m src.train --config configs/config.yaml
+
+  serve:
+    build:
+      context: .
+      dockerfile: Dockerfile.serve
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/app
+    working_dir: /app
+    command: uvicorn src.api:app --host 0.0.0.0 --port 8000

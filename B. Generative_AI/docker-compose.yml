@@ -1,0 +1,41 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - chroma_data:/app/.chroma
+    depends_on:
+      - mcp-server
+      - ollama
+
+  mcp-server:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    command: ["python", "-m", "src.mcp_server.server"]
+    env_file:
+      - .env
+    ports:
+      - "8765:8765"
+    volumes:
+      - ./data:/app/data
+      - chroma_data:/app/.chroma
+    depends_on:
+      - ollama
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+volumes:
+  chroma_data:
+  ollama_data:

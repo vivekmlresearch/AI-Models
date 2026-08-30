@@ -1,0 +1,32 @@
+stages:
+  preprocess:
+    cmd: python -m src.data.preprocess
+    deps:
+      - data/raw/heart_disease.csv
+      - src/data/preprocess.py
+      - configs/config.yaml
+    outs:
+      - data/processed/heart_disease_processed.csv
+      - models/scaler.pkl
+
+  train:
+    cmd: python -m src.models.train
+    deps:
+      - data/processed/heart_disease_processed.csv
+      - src/models/train.py
+      - src/models/evaluate.py
+      - configs/config.yaml
+    outs:
+      - models/best_model.pkl
+    metrics:
+      - metrics.json:
+          cache: false
+
+  evaluate:
+    cmd: python -m src.models.evaluate
+    deps:
+      - models/best_model.pkl
+      - models/scaler.pkl
+      - src/models/evaluate.py
+    outs:
+      - reports/confusion_matrix.png

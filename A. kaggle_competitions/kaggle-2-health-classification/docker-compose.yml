@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  api:
+    build: .
+    container_name: heart-disease-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+      - ./mlruns:/app/mlruns
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+
+  mlflow:
+    image: python:3.11-slim
+    container_name: mlflow-server
+    command: >
+      bash -c "pip install mlflow && mlflow ui --host 0.0.0.0 --port 5000 --backend-store-uri /mlruns"
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlruns:/mlruns
+    restart: unless-stopped

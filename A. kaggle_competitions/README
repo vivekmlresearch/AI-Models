@@ -1,0 +1,14 @@
+
+This repository demonstrates the application of modern machine learning techniques to solve Kaggle competitions. 
+It reflects practical experience in model development, cross-validation, feature engineering, evaluation, and the deployment of state-of-the-art algorithms for structured data problems.
+
+
+### License
+
+This project is released under the MIT License. The competition dataset is provided by Kaggle under: Attribution 4.0 International (CC BY 4.0)
+
+### References
+
+    Kaggle Playground Series (2026)
+    LightGBM Documentation: https://lightgbm.readthedocs.io/
+    ROC-AUC Theory: Fawcett, T. (2006). An introduction to ROC analysis.

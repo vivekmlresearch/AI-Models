@@ -1,0 +1,22 @@
+stages:
+  train:
+    cmd: python -m src.train --config configs/config.yaml
+    deps:
+      - src/train.py
+      - src/data/dataset.py
+      - src/data/features.py
+      - src/models/baseline.py
+      - configs/config.yaml
+      - data/raw/train.csv
+    outs:
+      - artifacts/model.joblib
+  predict:
+    cmd: python -m src.predict --config configs/config.yaml
+    deps:
+      - src/predict.py
+      - src/models/predictor.py
+      - configs/config.yaml
+      - data/raw/test.csv
+      - artifacts/model.joblib
+    outs:
+      - submission.csv

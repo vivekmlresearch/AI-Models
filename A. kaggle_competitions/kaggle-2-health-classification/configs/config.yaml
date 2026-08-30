@@ -1,0 +1,52 @@
+data:
+  raw_path: data/raw/heart_disease.csv
+  processed_path: data/processed/heart_disease_processed.csv
+  test_size: 0.2
+  random_state: 42
+  target_column: target
+
+features:
+  numerical:
+    - age
+    - trestbps
+    - chol
+    - thalach
+    - oldpeak
+  categorical:
+    - sex
+    - cp
+    - fbs
+    - restecg
+    - exang
+    - slope
+    - ca
+    - thal
+
+model:
+  name: xgboost         # options: logistic_regression, random_forest, xgboost
+  save_path: models/best_model.pkl
+  params:
+    xgboost:
+      n_estimators: 200
+      max_depth: 5
+      learning_rate: 0.05
+      subsample: 0.8
+      colsample_bytree: 0.8
+      random_state: 42
+    random_forest:
+      n_estimators: 200
+      max_depth: 10
+      min_samples_split: 5
+      random_state: 42
+    logistic_regression:
+      C: 1.0
+      max_iter: 1000
+      random_state: 42
+
+mlflow:
+  experiment_name: heart-disease-classification
+  tracking_uri: mlruns
+
+api:
+  host: 0.0.0.0
+  port: 8000
